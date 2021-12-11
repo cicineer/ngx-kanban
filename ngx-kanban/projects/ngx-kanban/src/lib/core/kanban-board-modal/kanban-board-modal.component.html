@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content>
+    <mat-form-field apperance="legacy">
+        <input matInput placeholder="Board name..." [(ngModel)]="name"/>
+        <mat-label>Board name</mat-label>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-stroked-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="disabled()" [mat-dialog-close]="name">Confirm</button>
+</mat-dialog-actions>

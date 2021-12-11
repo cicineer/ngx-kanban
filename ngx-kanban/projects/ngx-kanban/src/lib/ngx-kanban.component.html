@@ -1,0 +1,63 @@
+<div class="container"
+  [ngStyle]="{'height': config.height ? config.height : '', 'width': config.width ? config.width : ''}">
+  <div *ngIf="theme === 'material'">
+    <div class="fx-space-bt">
+      <div class="fx">
+        <div id="searchInput">
+          <mat-form-field apperance="legacy">
+            <mat-label>Search...</mat-label>
+            <input matInput />
+          </mat-form-field>
+        </div>
+        <div id="board-select">
+          <mat-form-field apperance="legacy">
+            <mat-label>
+              {{boards.length === 0 ? 'No board' : 'Select a board'}}
+            </mat-label>
+            <mat-select (selectionChange)="changeBoard($event)" [(value)]="selectedBoardName">
+              <mat-option [value]="board.name" *ngFor="let board of boards">{{board.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="mg-top-sm">
+        <button mat-raised-button color="primary" (click)="createBoard()">Create board</button>
+        <button mat-raised-button [disabled]="!board.name" color="primary" (click)="createList()">Create list</button>
+      </div>
+    </div>
+    <mat-card *ngIf="boards.length === 0">
+      No board available, please create one...
+    </mat-card>
+    <div class="kanban-list fx">
+      <div class="list-item" *ngFor="let list of board.lists;">
+        <div class="list-item-header fx-space-bt">
+          <div>
+            <span class="circle-container">{{list.items?.length}}</span>
+            <span>{{list.label.name}}</span>
+          </div>
+          <div class="fx">
+            <mat-icon class="icon-only-btn" (click)="addListItem(list)">add_box</mat-icon>
+          </div>
+        </div>
+        <div class="list-item-content">
+          <mat-card *ngFor="let item of list.items">
+            <p class="">{{item.title}}</p>
+            <div class="fx-space-bt">
+              <small>{{item.assignee?.name}}</small>
+              <mat-icon class="icon-only-btn" (click)="editListItem(item, list)">edit_note</mat-icon>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button mat-raised-button (click)="deleteBoard()" color="warn" [disabled]="!board.name">Delete board</button>
+      <button mat-raised-button (click)="editBoard()" [disabled]="!board.name">Edit board</button>
+    </div>
+  </div>
+  <div *ngIf="theme === 'bootstrap'">
+    <div class="board-header">
+
+    </div>
+  </div>
+</div>

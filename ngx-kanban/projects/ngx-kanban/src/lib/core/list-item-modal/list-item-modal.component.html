@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content>
+    <mat-form-field>
+        <input matInput placeholder="Item title..." [(ngModel)]="item.title" required/>
+        <mat-label>Item title</mat-label>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Item description..." [(ngModel)]="item.description"/>
+        <mat-label>Item description</mat-label>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Assignee..." [(ngModel)]="item.assignee">
+            <mat-option *ngIf="users.length === 0">No user available to assign...</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.name">{{user.name}}</mat-option>
+        </mat-select>
+        <mat-label>Select assignee</mat-label>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Milestone..." [(ngModel)]="item.milestone">
+            <mat-option *ngIf="milestones.length === 0">No milestone available to assign...</mat-option>
+            <mat-option *ngFor="let milestone of milestones" [value]="milestone.title">{{milestone.title}}</mat-option>
+        </mat-select>
+        <mat-label>Select milestone</mat-label>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Label..." [(ngModel)]="item.label">
+            <mat-option *ngIf="labels.length === 0">No label available to assign...</mat-option>
+            <mat-option *ngFor="let label of labels" [value]="label.name">{{label.name}}</mat-option>
+        </mat-select>
+        <mat-label>Select label</mat-label>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-stroked-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="!item.title" [mat-dialog-close]="item">Confirm</button>
+</mat-dialog-actions>
